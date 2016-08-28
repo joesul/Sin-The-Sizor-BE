@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Keyboard from './Keyboard.js'
-import logo from './logo.svg';
+import Board from './Board'
 import './App.css';
 
 let audioCtx = new window.AudioContext();
@@ -14,6 +13,8 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      positionX: 0,
+      positionY: 0,
       //white keys frequency
       e3: 164.814,//a
       f3: 174.614,//s
@@ -145,7 +146,7 @@ class App extends Component {
            var osc = audio.createOscillator();
 
            osc.frequency.value = freq;
-          //  osc.type = "square";
+          //  osc.type = "Square";
            osc.connect(audio.destination);
            osc.start(0);
 
@@ -167,24 +168,20 @@ class App extends Component {
            }
        }
     }
-
   render() {
+    const positionY = this.state.positionY;
+    const positionX = this.state.positionX;
     return (
 
         <div className="App" onKeyDown={(()=> this.handleKeyDown())} >
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
 
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
           <button onClick={(() => this.handleSong())}>Beep</button>
 
-        </p>
-        <div className="keyboard">
-          <Keyboard />
-        </div>
+
+            <Board ycoords={positionY} xcoords={positionX}/>
+
+
+
       </div>
     );
   }
