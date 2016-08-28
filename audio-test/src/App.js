@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Sound from './Sound'
+import Keyboard from './Keyboard.js'
 import logo from './logo.svg';
 import './App.css';
 
@@ -18,7 +18,7 @@ class App extends Component {
       e3: 164.814,//a
       f3: 174.614,//s
       g3: 195.998,//d
-      a3: 220,//f
+      a3: 220,    //f
       b3: 246.942,//g
       c4: 261.626,//h
       d4: 293.665, //j
@@ -48,7 +48,7 @@ class App extends Component {
    handleSound(note){
 
     //let oscillator = audioCtx.createOscillator();
-
+    oscillator.type = 'sawtooth'
     oscillator.frequency.value = note
     oscillator.connect(audioCtx.destination);
   }
@@ -59,8 +59,6 @@ class App extends Component {
   }
 
      handleKeyDown(event){
-/* This will handle frequency conversion that will be passed to handle sound*/
-
        console.log("I have been pressed", event.keyCode)
        console.log("starting up")
        let note;
@@ -126,6 +124,50 @@ class App extends Component {
      }
      this.handleSound(note)
    }
+   handleSong(){
+       console.log("starting up")
+
+       let audio = new window.webkitAudioContext(),
+           position = 0,
+           scale = {
+               g: 392,
+               f: 349.23,
+               e: 329.63,
+               b: 493.88,
+               c: 261.6,
+               a: 440
+           },
+           song = "cfefcc-fff-abb-=afefaaccffgfe---";
+
+       setInterval(play, 1000 / 4);
+
+       function createOscillator(freq) {
+           var osc = audio.createOscillator();
+
+           osc.frequency.value = freq;
+          //  osc.type = "square";
+           osc.connect(audio.destination);
+           osc.start(0);
+
+           setTimeout(function() {
+               osc.stop(0);
+               osc.disconnect(audio.destination);
+           }, 1000 / 4)
+       }
+
+       function play() {
+           var note = song.charAt(position),
+               freq = scale[note];
+           position += 1;
+           if(position >= song.length) {
+               position = 0;
+           }
+           if(freq) {
+               createOscillator(freq);
+           }
+       }
+    }
+
   render() {
     return (
 
@@ -137,58 +179,15 @@ class App extends Component {
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
-          <button onClick={(() => this.handleSound())}>Beep</button>
+          <button onClick={(() => this.handleSong())}>Beep</button>
 
         </p>
-
+        <div className="keyboard">
+          <Keyboard />
+        </div>
       </div>
     );
   }
 }
 
 export default App;
-
-
-//   handleSound(){
-//     console.log("starting up")
- //
-//     var audio = new window.webkitAudioContext(),
-//         position = 0,
-//         scale = {
-//             g: 392,
-//             f: 349.23,
-//             e: 329.63,
-//             b: 493.88,
-//             c: 261.6,
-//             a: 440
-//         },
-//         song = "cfefcc-fff-abb-=afefaaccffgfe---";
- //
-//     setInterval(play, 1000 / 4);
- //
-//     function createOscillator(freq) {
-//         var osc = audio.createOscillator();
- //
-//         osc.frequency.value = freq;
-//         osc.type = "square";
-//         osc.connect(audio.destination);
-//         osc.start(0);
- //
-//         setTimeout(function() {
-//             osc.stop(0);
-//             osc.disconnect(audio.destination);
-//         }, 1000 / 4)
-//     }
- //
-//     function play() {
-//         var note = song.charAt(position),
-//             freq = scale[note];
-//         position += 1;
-//         if(position >= song.length) {
-//             position = 0;
-//         }
-//         if(freq) {
-//             createOscillator(freq);
-//         }
-//     }
-//  }
