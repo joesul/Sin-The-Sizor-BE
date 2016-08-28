@@ -32,7 +32,7 @@ class Board extends Component {
         // console.log("hallo", coords.ycoords);
         // this.props.ycoords = coords.ycoords++
         yaxis = coords.ycoords
-        yaxis =+1
+        yaxis=+1
         console.log("Da Y", yaxis)
 
         return yaxis
