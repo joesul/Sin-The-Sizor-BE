@@ -17,7 +17,7 @@ class Board extends Component {
   }
 
   renderSquare(i) {
-    console.log(this.props);
+    //console.log(this.props);
     let coords = this.props
     const x = i % 8;
     const y = Math.floor(i / 8);
@@ -29,11 +29,10 @@ class Board extends Component {
       null;
 
       setInterval(function(){
-        // console.log("hallo", coords.ycoords);
-        // this.props.ycoords = coords.ycoords++
+
         yaxis = coords.ycoords
         yaxis=+1
-        console.log("Da Y", yaxis)
+        //console.log("Da Y", yaxis)
 
         return yaxis
       }, 1000)

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import Board from './Board'
+// import Board from './Board'
+// import {Spring} from 'react-motion'
+import {Surface} from 'react-canvas'
 import './App.css';
 
 let audioCtx = new window.AudioContext();
@@ -169,6 +171,8 @@ class App extends Component {
        }
     }
   render() {
+    var surfaceWidth = '400px';
+   var surfaceHeight = '400px';
     const positionY = this.state.positionY;
     const positionX = this.state.positionX;
     return (
@@ -176,13 +180,11 @@ class App extends Component {
         <div className="App" onKeyDown={(()=> this.handleKeyDown())} >
 
           <button onClick={(() => this.handleSong())}>Beep</button>
-
-
-            <Board ycoords={positionY} xcoords={positionX}/>
-
-
-
+          <Surface width={surfaceWidth} height={surfaceHeight} left={0} top={0}>
+            Will it Work
+          </Surface>
       </div>
+
     );
   }
 }
